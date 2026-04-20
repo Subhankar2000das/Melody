@@ -1,0 +1,1 @@
+export type SearchEntityType = "song" | "album" | "artist" | "category";

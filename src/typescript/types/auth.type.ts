@@ -1,0 +1,1 @@
+export type LoginRedirectPath = "/" | "/admin/dashboard" | "/login" | "/register";

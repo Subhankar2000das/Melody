@@ -1,0 +1,1 @@
+export type DashboardStatKey = "totalSongs" | "totalAlbums" | "totalUsers";
