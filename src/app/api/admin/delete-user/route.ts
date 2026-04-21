@@ -15,7 +15,7 @@ export async function DELETE(req: Request) {
       );
     }
 
-    // 🔥 Delete from Supabase Auth
+    
     const { error: authError } =
       await adminSupabase.auth.admin.deleteUser(auth_user_id);
 
@@ -26,7 +26,7 @@ export async function DELETE(req: Request) {
       );
     }
 
-    // 🔥 Delete from registration table
+    
     const { error: dbError } = await adminSupabase
       .from("registration")
       .delete()
