@@ -1,57 +1,65 @@
 "use client";
 
-import Link from "next/link";
-import Table from "@/components/ui/table";
+import TableWrapper from "@/components/ui/table-wrapper";
 import Button from "@/components/ui/button";
 import type { IAlbum } from "@/typescript/interfaces/album.interface";
 
 type Props = {
   albums: IAlbum[];
-  onDelete?: (album: IAlbum) => void;
+  onEdit: (id: number) => void;
+  onDelete: (id: number) => void;
+  onAttachSongs: (id: number) => void;
 };
 
-const AlbumsTable = ({ albums, onDelete }: Props) => {
+const AlbumsTable = ({
+  albums,
+  onEdit,
+  onDelete,
+  onAttachSongs,
+}: Props) => {
   return (
-    <Table headers={["Album", "Artist", "Actions"]}>
-      {albums?.map((album) => (
-        <tr key={album.id} className="border-b border-gray-800 last:border-b-0">
-          <td className="px-4 py-3">
-            <div className="flex items-center gap-3">
-              <img
-                src={album.image}
-                alt={album.title}
-                className="h-12 w-12 rounded object-cover"
-              />
-              <span className="font-medium text-white">{album.title}</span>
-            </div>
-          </td>
+    <TableWrapper>
+      <table className="w-full text-sm text-white">
+        <thead>
+          <tr className="border-b border-white/10 text-left text-gray-400">
+            <th className="p-3">Album</th>
+            <th className="p-3">Artist</th>
+            <th className="p-3 text-right">Actions</th>
+          </tr>
+        </thead>
 
-          <td className="px-4 py-3 text-gray-300">{album.artist}</td>
+        <tbody>
+          {albums.map((album) => (
+            <tr key={album.id} className="border-b border-white/5">
+              <td className="flex items-center gap-3 p-3">
+                <img
+                  src={album.image}
+                  className="h-10 w-10 rounded object-cover"
+                />
+                <span>{album.title}</span>
+              </td>
 
-          <td className="px-4 py-3">
-            <div className="flex flex-wrap gap-2">
-              <Link href={`/admin/albums/edit/${album.id}`}>
-                <Button variant="secondary" className="px-3 py-1.5 text-sm">
-                  Edit
-                </Button>
-              </Link>
+              <td className="p-3">{album.artist}</td>
 
-              <Link href={`/admin/albums/attach-songs/${album.id}`}>
-                <Button className="px-3 py-1.5 text-sm">Attach Songs</Button>
-              </Link>
-
-              <Button
-                variant="danger"
-                className="px-3 py-1.5 text-sm"
-                onClick={() => onDelete?.(album)}
-              >
-                Delete
-              </Button>
-            </div>
-          </td>
-        </tr>
-      ))}
-    </Table>
+              <td className="p-3 text-right">
+                <div className="flex flex-wrap justify-end gap-2">
+                  <Button onClick={() => onAttachSongs(album.id)}>
+                    Attach
+                  </Button>
+                  <Button onClick={() => onEdit(album.id)}>Edit</Button>
+                  <Button
+                    onClick={() => onDelete(album.id)}
+                    className="bg-red-500 hover:bg-red-600"
+                  >
+                    Delete
+                  </Button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrapper>
   );
 };
 

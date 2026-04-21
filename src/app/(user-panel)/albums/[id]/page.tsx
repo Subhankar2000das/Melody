@@ -7,6 +7,7 @@ import Loader from "@/components/ui/loader";
 import EmptyState from "@/components/ui/empty-state";
 import { useAlbumById } from "@/hooks/queries/useAlbumById";
 import { useSongsByAlbum } from "@/hooks/queries/useSongsByAlbum";
+import type { ISong } from "@/typescript/interfaces/song.interface";
 
 const AlbumDetailsPage = () => {
   const params = useParams();
@@ -16,9 +17,12 @@ const AlbumDetailsPage = () => {
   const { data: album, isLoading: albumLoading } = useAlbumById(
     Number.isFinite(albumId) ? albumId : undefined
   );
-  const { data: songs = [], isLoading: songsLoading } = useSongsByAlbum(
+
+  const { data: songsData = [], isLoading: songsLoading } = useSongsByAlbum(
     Number.isFinite(albumId) ? albumId : undefined
   );
+
+  const songs = songsData as ISong[];
 
   if (!Number.isFinite(albumId)) {
     return <EmptyState message="Invalid album id." />;

@@ -1,8 +1,10 @@
-export const formatDuration = (seconds?: number | null) => {
-  if (seconds === null || seconds === undefined) return "0:00";
+export const formatDuration = (value?: number | null) => {
+  if (!value || Number.isNaN(value) || value < 0) {
+    return "0:00";
+  }
 
-  const min = Math.floor(seconds / 60);
-  const sec = seconds % 60;
+  const minutes = Math.floor(value / 60);
+  const seconds = Math.floor(value % 60);
 
-  return `${min}:${sec.toString().padStart(2, "0")}`;
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 };

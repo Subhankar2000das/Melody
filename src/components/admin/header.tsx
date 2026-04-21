@@ -1,23 +1,18 @@
 type Props = {
-  title?: string;
+  title: string;
   subtitle?: string;
   action?: React.ReactNode;
 };
 
 const Header = ({ title, subtitle, action }: Props) => {
   return (
-    <div className="mb-6 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <h1 className="text-2xl font-bold text-white md:text-3xl">
-          {title ?? "Dashboard"}
-        </h1>
-
-        {subtitle ? (
-          <p className="mt-1 text-sm text-gray-400">{subtitle}</p>
-        ) : null}
+        <h1 className="text-xl font-bold text-white sm:text-2xl">{title}</h1>
+        {subtitle ? <p className="text-sm text-gray-400">{subtitle}</p> : null}
       </div>
 
-      {action ? <div>{action}</div> : null}
+      {action ? <div className="w-full sm:w-auto">{action}</div> : null}
     </div>
   );
 };

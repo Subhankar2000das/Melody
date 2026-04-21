@@ -7,23 +7,25 @@ const CurrentTrackInfo = () => {
 
   if (!currentSong) {
     return (
-      <div className="flex min-w-[220px] items-center gap-3 text-white">
-        <div className="flex h-14 w-14 items-center justify-center rounded bg-[#222] text-sm text-gray-400">
+      <div className="flex min-w-0 items-center gap-3 text-white">
+        <div className="flex h-12 w-12 items-center justify-center rounded bg-[#222] text-sm text-gray-400">
           N
         </div>
-        <div>
-          <p className="text-sm font-medium text-gray-400">No song playing</p>
+        <div className="min-w-0">
+          <p className="truncate text-sm font-medium text-gray-400">
+            No song playing
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-w-[220px] max-w-[260px] items-center gap-3">
+    <div className="flex min-w-0 items-center gap-3">
       <img
         src={currentSong.image}
         alt={currentSong.title}
-        className="h-14 w-14 rounded object-cover"
+        className="h-12 w-12 rounded object-cover"
       />
       <div className="min-w-0">
         <p className="truncate text-sm font-semibold text-white">

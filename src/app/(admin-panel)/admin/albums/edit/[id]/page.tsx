@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "sonner";
-
+import BackButton from "@/components/ui/back-button";
 import Header from "@/components/admin/header";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
@@ -91,10 +91,13 @@ const EditAlbumPage = () => {
 
   return (
     <div className="space-y-6">
-      <Header
-        title="Edit Album"
-        subtitle="Update album details. Re-upload cover only if needed."
-      />
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+  <Header
+    title="Edit Album"
+    subtitle="Update album details. Re-upload cover only if needed."
+  />
+  <BackButton />
+</div>
 
       <form
         onSubmit={handleSubmit(onSubmit)}

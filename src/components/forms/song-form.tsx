@@ -219,7 +219,7 @@ const SongForm = () => {
               className="block w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-white"
             />
           )}
-        />
+        /> audio file
         <p className="mt-1 text-sm text-red-400">
           {errors.audioFile?.message as string}
         </p>
@@ -246,7 +246,7 @@ const SongForm = () => {
               className="block w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-white"
             />
           )}
-        />
+        /> image file
         <p className="mt-1 text-sm text-red-400">
           {errors.imageFile?.message as string}
         </p>

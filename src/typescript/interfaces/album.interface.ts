@@ -1,8 +1,7 @@
 import type { ISong } from "./song.interface";
 
 export interface IAlbum {
-  id: number;
-  created_at: string;
+  id: number; 
   title: string;
   artist: string;
   image: string;

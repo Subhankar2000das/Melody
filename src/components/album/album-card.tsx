@@ -13,22 +13,18 @@ const AlbumCard = ({ album }: Props) => {
   return (
     <div
       onClick={() => router.push(`/albums/${album.id}`)}
-      className="group cursor-pointer rounded-xl bg-[#181818] p-4 transition hover:bg-[#242424]"
+      className="cursor-pointer rounded-xl bg-[#181818] p-3 transition hover:bg-[#242424]"
     >
-      <div className="relative overflow-hidden rounded-lg">
-        <img
-          src={album.image}
-          alt={album.title}
-          className="h-44 w-full rounded-lg object-cover transition duration-300 group-hover:scale-105"
-        />
-      </div>
+      <img
+        src={album.image}
+        alt={album.title}
+        className="mb-2 h-28 w-full rounded-lg object-cover sm:h-36"
+      />
 
-      <div className="mt-4">
-        <h3 className="truncate text-base font-semibold text-white">
-          {album.title}
-        </h3>
-        <p className="truncate text-sm text-gray-400">{album.artist}</p>
-      </div>
+      <p className="truncate text-sm font-semibold text-white">
+        {album.title}
+      </p>
+      <p className="truncate text-xs text-gray-400">{album.artist}</p>
     </div>
   );
 };

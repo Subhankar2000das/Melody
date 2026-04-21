@@ -25,7 +25,10 @@ type Props = {
 const AttachSongsForm = ({ albumId }: Props) => {
   const [searchKeyword, setSearchKeyword] = useState("");
 
-  const { data: songs = [], isLoading } = useSongsForAttachQuery(searchKeyword);
+  const { data: songs = [], isLoading } = useSongsForAttachQuery(
+    searchKeyword,
+    albumId
+  );
   const { mutateAsync, isPending } = useAttachSongsToAlbumMutation();
 
   const {
@@ -87,7 +90,7 @@ const AttachSongsForm = ({ albumId }: Props) => {
         <div>
           <h2 className="text-xl font-semibold text-white">Attach Songs</h2>
           <p className="mt-1 text-sm text-gray-400">
-            Search available songs and attach multiple songs to this album.
+            Attach multiple songs to this album. Songs can belong to many albums.
           </p>
         </div>
 

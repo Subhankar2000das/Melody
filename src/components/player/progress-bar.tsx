@@ -24,8 +24,8 @@ const ProgressBar = ({ onSeek }: Props) => {
   }, [duration]);
 
   return (
-    <div className="flex w-full items-center gap-3">
-      <span className="w-10 text-right text-xs text-gray-400">
+    <div className="flex w-full items-center gap-2 md:gap-3">
+      <span className="w-10 text-right text-[10px] text-gray-400 md:text-xs">
         {formatTime(currentTime)}
       </span>
 
@@ -40,7 +40,7 @@ const ProgressBar = ({ onSeek }: Props) => {
         className="h-1 w-full cursor-pointer appearance-none rounded-lg bg-gray-700 accent-white disabled:opacity-40"
       />
 
-      <span className="w-10 text-xs text-gray-400">
+      <span className="w-10 text-[10px] text-gray-400 md:text-xs">
         {formatTime(safeDuration)}
       </span>
     </div>

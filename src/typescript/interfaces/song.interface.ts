@@ -2,15 +2,14 @@ import type { SongCategory } from "../types/song.type";
 
 export interface ISong {
   id: number;
-  created_at: string;
   title: string;
   artist: string;
-  year: number;
-  duration: number;
-  file: string;
   image: string;
+  file: string;
+  duration: number;
+  year: number;
   category: SongCategory;
-  album_id: number | null;
+  created_at?: string;
 }
 
 export interface ICreateSongPayload {

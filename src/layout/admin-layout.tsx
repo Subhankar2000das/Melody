@@ -1,32 +1,28 @@
 "use client";
 
-import Sidebar from "@/components/admin/sidebar";
-import Header from "@/components/admin/header";
+import { useState } from "react";
+import AdminSidebar from "@/components/layout/admin-sidebar";
 
-type Props = {
-  children: React.ReactNode;
-};
+const AdminLayout = ({ children }: { children: React.ReactNode }) => {
+  const [open, setOpen] = useState(false);
 
-const AdminLayout = ({ children }: Props) => {
   return (
-    <div className="flex h-screen bg-[#0f0f0f] text-white">
-      {/* Sidebar */}
-      <div className="hidden md:block w-64 border-r border-white/5">
-        <Sidebar />
+    <div className="flex min-h-screen bg-black text-white">
+      <div className="hidden w-64 border-r border-white/10 md:block">
+        <AdminSidebar />
       </div>
 
-      {/* Main */}
-      <div className="flex flex-1 flex-col overflow-hidden">
-        {/* Header */}
-        <div className="border-b border-white/5">
-          <Header />
+      {open ? (
+        <div className="fixed inset-0 z-50 bg-black/70 md:hidden">
+          <div className="h-full w-64 bg-[#121212]">
+            <AdminSidebar onClose={() => setOpen(false)} />
+          </div>
         </div>
+      ) : null}
 
-        {/* Content */}
-        <main className="flex-1 overflow-y-auto p-6">
-          {children}
-        </main>
-      </div>
+      <main className="flex-1 overflow-y-auto p-4 md:p-6">
+        {children}
+      </main>
     </div>
   );
 };

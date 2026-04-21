@@ -1,11 +1,22 @@
-import SongCard from "./song-card";
-import { ISong } from "@/typescript/interfaces/song.interface";
+"use client";
 
-const SongList = ({ songs }: { songs: ISong[] }) => {
+import SongCard from "./song-card";
+import EmptyState from "@/components/ui/empty-state";
+import type { ISong } from "@/typescript/interfaces/song.interface";
+
+type Props = {
+  songs?: ISong[];
+};
+
+const SongList = ({ songs = [] }: Props) => {
+  if (!songs.length) {
+    return <EmptyState message="No songs available." />;
+  }
+
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
       {songs.map((song) => (
-        <SongCard key={song.id} song={song} songs={songs} />
+        <SongCard key={song.id} song={song} />
       ))}
     </div>
   );

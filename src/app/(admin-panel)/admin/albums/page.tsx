@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import Header from "@/components/admin/header";
@@ -15,6 +16,8 @@ import { useDeleteAlbumMutation } from "@/hooks/mutations/useDeleteAlbumMutation
 import type { IAlbum } from "@/typescript/interfaces/album.interface";
 
 const AdminAlbumsPage = () => {
+  const router = useRouter();
+
   const { data: albums = [], isLoading } = useAlbumsQuery();
   const { mutateAsync, isPending } = useDeleteAlbumMutation();
 
@@ -70,7 +73,15 @@ const AdminAlbumsPage = () => {
       />
 
       {filteredAlbums.length ? (
-        <AlbumsTable albums={filteredAlbums} onDelete={setSelectedAlbum} />
+        <AlbumsTable
+          albums={filteredAlbums}
+          onEdit={(id) => router.push(`/admin/albums/edit/${id}`)}
+          onAttachSongs={(id) => router.push(`/admin/albums/attach-songs/${id}`)}
+          onDelete={(id) => {
+            const album = filteredAlbums.find((item) => item.id === id) ?? null;
+            setSelectedAlbum(album);
+          }}
+        />
       ) : (
         <EmptyState message="No albums found." />
       )}
@@ -78,7 +89,7 @@ const AdminAlbumsPage = () => {
       <DeleteConfirmation
         open={!!selectedAlbum}
         title="Delete Album"
-        description={`Are you sure you want to delete "${selectedAlbum?.title ?? ""}"? Songs will remain and album relation will be removed.`}
+        description={`Are you sure you want to delete "${selectedAlbum?.title ?? ""}"?`}
         isLoading={isPending}
         onClose={() => setSelectedAlbum(null)}
         onConfirm={handleDelete}

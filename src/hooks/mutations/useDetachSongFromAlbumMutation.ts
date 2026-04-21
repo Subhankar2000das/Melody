@@ -5,8 +5,8 @@ import { detachSongFromAlbum } from "@/services/api/albums-service";
 
 export const useDetachSongFromAlbumMutation = () => {
   return useMutation({
-    mutationFn: ({ songId }: { songId: number; albumId: number }) =>
-      detachSongFromAlbum(songId),
+    mutationFn: ({ songId, albumId }: { songId: number; albumId: number }) =>
+      detachSongFromAlbum(songId, albumId),
 
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.songs });
@@ -14,7 +14,7 @@ export const useDetachSongFromAlbumMutation = () => {
         queryKey: queryKeys.songsByAlbum(variables.albumId),
       });
       queryClient.invalidateQueries({
-        queryKey: queryKeys.songsForAttach(""),
+        queryKey: queryKeys.songsForAttach("", variables.albumId),
       });
     },
   });

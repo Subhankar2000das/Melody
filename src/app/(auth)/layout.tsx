@@ -9,9 +9,9 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthRedirect>
-      <div className="min-h-screen bg-gradient-to-b from-[#121212] to-black text-white">
-        <div className="flex min-h-screen items-center justify-center px-4">
-          <div className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#181818] p-6 shadow-2xl">
+      <div className="min-h-screen bg-gradient-to-b from-[#121212] to-black px-4 text-white">
+        <div className="flex min-h-screen items-center justify-center py-6">
+          <div className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#181818] p-5 shadow-2xl sm:p-6">
             <button
               type="button"
               onClick={() => router.push("/")}

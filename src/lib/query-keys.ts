@@ -5,8 +5,8 @@ export const queryKeys = {
     ["songs", "category", category] as const,
   songsByAlbum: (albumId: number) =>
     ["songs", "album", albumId] as const,
-  songsForAttach: (search?: string) =>
-    ["songs", "attach", search ?? ""] as const,
+  songsForAttach: (search?: string, albumId?: number) =>
+    ["songs", "attach", search ?? "", albumId ?? 0] as const,
 
   albums: ["albums"] as const,
   album: (id: number) => ["albums", id] as const,

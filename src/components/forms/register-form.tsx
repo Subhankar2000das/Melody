@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
@@ -21,6 +23,9 @@ type RegisterFormValues = {
 const RegisterForm = () => {
   const router = useRouter();
   const { register: registerUser } = useAuthStore();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     control,
@@ -86,11 +91,13 @@ const RegisterForm = () => {
           control={control}
           render={({ field }) => (
             <Input
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={field.value}
               onChange={field.onChange}
               onBlur={field.onBlur}
               placeholder="Password"
+              rightIcon={showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              onRightIconClick={() => setShowPassword((prev) => !prev)}
             />
           )}
         />
@@ -103,11 +110,17 @@ const RegisterForm = () => {
           control={control}
           render={({ field }) => (
             <Input
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               value={field.value}
               onChange={field.onChange}
               onBlur={field.onBlur}
               placeholder="Confirm Password"
+              rightIcon={
+                showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />
+              }
+              onRightIconClick={() =>
+                setShowConfirmPassword((prev) => !prev)
+              }
             />
           )}
         />

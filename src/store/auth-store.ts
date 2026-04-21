@@ -72,28 +72,17 @@ export const useAuthStore = create<IAuthStore>((set) => ({
         return;
       }
 
-      const { data, error: profileError } = await supabase
+      const { data: profileData, error: profileError } = await supabase
         .from("registration")
         .select("*")
         .eq("auth_user_id", user.id)
-        .single();
+        .maybeSingle();
 
       if (profileError) {
-        set({
-          authUser: {
-            id: user.id,
-            email: user.email ?? "",
-          },
-          profile: null,
-          status: "authenticated",
-          isHydrated: true,
-          isAdmin: false,
-          isUser: false,
-        });
-        return;
+        throw new Error(profileError.message);
       }
 
-      const profile = (data as IRegistration) ?? null;
+      const profile = (profileData as IRegistration | null) ?? null;
 
       set({
         authUser: {
@@ -138,13 +127,19 @@ export const useAuthStore = create<IAuthStore>((set) => ({
         .from("registration")
         .select("*")
         .eq("auth_user_id", user.id)
-        .single();
+        .maybeSingle();
 
       if (profileError) {
-        throw new Error("Profile not found. Please contact admin.");
+        throw new Error(profileError.message);
       }
 
-      const profile = (profileData as IRegistration) ?? null;
+      if (!profileData) {
+        throw new Error(
+          "Profile not found. Make sure registration.auth_user_id matches auth.users.id."
+        );
+      }
+
+      const profile = profileData as IRegistration;
 
       set({
         authUser: {
@@ -206,11 +201,15 @@ export const useAuthStore = create<IAuthStore>((set) => ({
         throw new Error("Unable to create user account.");
       }
 
-      const { data: existingProfile } = await supabase
+      const { data: existingProfile, error: existingError } = await supabase
         .from("registration")
         .select("*")
         .eq("auth_user_id", user.id)
         .maybeSingle();
+
+      if (existingError) {
+        throw new Error(existingError.message);
+      }
 
       let profile: IRegistration | null = null;
 
@@ -243,8 +242,8 @@ export const useAuthStore = create<IAuthStore>((set) => ({
         profile,
         status: "authenticated",
         isHydrated: true,
-        isAdmin: false,
-        isUser: true,
+        isAdmin: profile?.role === "admin",
+        isUser: profile?.role === "user",
       });
 
       return {
